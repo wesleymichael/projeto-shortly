@@ -1,4 +1,27 @@
 {
+  "name": "projeto17-shortly",
+  "type": "module",
+  "description": "",
+  "version": "1.0.0",
+  "main": "./src/app.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "start": "node ./src/index.js",
+		"dev": "npx nodemon ./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wesleymichael/projeto17-shortly.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wesleymichael/projeto17-shortly/issues"
+  },
+  "homepage": "https://github.com/wesleymichael/projeto17-shortly#readme",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
