@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-export const userSchema = Joi.object({
+export const signupSchema = Joi.object({
     name: Joi.string().trim().required(),
     email: Joi.string().email().required(),
     password: Joi.string().trim().required().min(3),
@@ -10,4 +10,9 @@ export const userSchema = Joi.object({
         .messages({
             'any.only': 'Passwords must match',
         }),
+});
+
+export const signinSchema = Joi.object({
+    email: Joi.string().email().required(),
+    password: Joi.string().trim().required().min(3),
 });
