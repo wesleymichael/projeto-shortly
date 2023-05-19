@@ -44,11 +44,15 @@ export async function redirectToUrl(req, res){
     const {shortUrl} = req.params;
     
     try {
-        const urlData = await db.query(`SELECT * FROM urls WHERE "shortUrl" = $1;`, [shortUrl]);
+        const result = await db.query(`SELECT * FROM urls WHERE "shortUrl" = $1;`, [shortUrl]);
 
-        if(urlData.rowCount === 0) return res.sendStatus(404);
+        if(result.rowCount === 0) return res.sendStatus(404);
+       
+        const urlData = result.rows[0];
 
-        const absoluteUrl = urlData.rows[0].url.startsWith('http') ? urlData.rows[0].url : `http://${urlData.rows[0].url}`;
+        await db.query(`UPDATE urls SET "visitCount" = $1 WHERE id = $2;`, [urlData.visitCount+1, urlData.id]);
+
+        const absoluteUrl = urlData.url.startsWith('http') ? urlData.url : `http://${urlData.url}`;
         return res.redirect(absoluteUrl);
 
     } catch (error) {
