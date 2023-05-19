@@ -1,5 +1,6 @@
 import { db } from "../database/database.connection.js";
 import { nanoid } from 'nanoid';
+import jwt from 'jsonwebtoken';
 
 export async function shortenUrl(req, res){
     const { url } = req.body;
@@ -57,5 +58,30 @@ export async function redirectToUrl(req, res){
 
     } catch (error) {
         return res.status(500).send(error.message)
+    }
+}
+
+export async function deleteUrl(req, res){
+    const secreteKey = process.env.JWT_SECRET;
+    const id = parseInt(req.params.id);
+
+    if(isNaN(id)) return res.sendStatus(400);   
+
+    try {
+        const session = res.locals.session;
+        const user = jwt.verify(session.token, secreteKey);
+
+        const findUrl = await db.query(`SELECT 1 FROM urls WHERE id = $1;`, [id]);
+
+        if(findUrl.rowCount === 0) return res.sendStatus(404);
+
+        const results = await db.query(`DELETE FROM urls WHERE id = $1 AND "userId" = $2;`, [id, user.id]);
+
+        if(results.rowCount === 0) return res.sendStatus(401);
+
+        res.sendStatus(204);
+
+    } catch (error) {
+        return res.status(500).send(error.message);
     }
 }
