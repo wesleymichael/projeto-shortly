@@ -62,18 +62,18 @@ export async function redirectToUrl(req, res){
 }
 
 export async function deleteUrl(req, res){
-    const secreteKey = process.env.JWT_SECRET;
+    const secretKey = process.env.JWT_SECRET;
     const id = parseInt(req.params.id);
 
     if(isNaN(id)) return res.sendStatus(400);   
 
     try {
         const session = res.locals.session;
-        const user = jwt.verify(session.token, secreteKey);
+        const user = jwt.verify(session.token, secretKey);
 
-        const findUrl = await db.query(`SELECT 1 FROM urls WHERE id = $1;`, [id]);
+        const urlExists = await db.query(`SELECT 1 FROM urls WHERE id = $1;`, [id]);
 
-        if(findUrl.rowCount === 0) return res.sendStatus(404);
+        if(urlExists.rowCount === 0) return res.sendStatus(404);
 
         const results = await db.query(`DELETE FROM urls WHERE id = $1 AND "userId" = $2;`, [id, user.id]);
 
