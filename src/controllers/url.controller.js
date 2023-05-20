@@ -22,10 +22,7 @@ export async function shortenUrl(req, res){
 }
 
 export async function getUrlById(req, res){
-    const id = parseInt(req.params.id);
-
-    if(isNaN(id)) return res.sendStatus(400);
-
+    const id = res.locals.id;
     try {
         const urlData = await db.query(`
             SELECT "urls".id, "urls"."shortUrl", "urls"."url" 
@@ -41,15 +38,9 @@ export async function getUrlById(req, res){
     }
 }
 
-export async function redirectToUrl(req, res){
-    const {shortUrl} = req.params;
-    
-    try {
-        const result = await db.query(`SELECT * FROM urls WHERE "shortUrl" = $1;`, [shortUrl]);
-
-        if(result.rowCount === 0) return res.sendStatus(404);
-       
-        const urlData = result.rows[0];
+export async function redirectToUrl(req, res){    
+    try {       
+        const urlData = res.locals.urlData;
 
         await db.query(`UPDATE urls SET "visitCount" = $1 WHERE id = $2;`, [urlData.visitCount+1, urlData.id]);
 
@@ -63,17 +54,11 @@ export async function redirectToUrl(req, res){
 
 export async function deleteUrl(req, res){
     const secretKey = process.env.JWT_SECRET;
-    const id = parseInt(req.params.id);
-
-    if(isNaN(id)) return res.sendStatus(400);   
+    const id = res.locals.id;
+    const session = res.locals.session;
 
     try {
-        const session = res.locals.session;
         const user = jwt.verify(session.token, secretKey);
-
-        const urlExists = await db.query(`SELECT 1 FROM urls WHERE id = $1;`, [id]);
-
-        if(urlExists.rowCount === 0) return res.sendStatus(404);
 
         const results = await db.query(`DELETE FROM urls WHERE id = $1 AND "userId" = $2;`, [id, user.id]);
 
