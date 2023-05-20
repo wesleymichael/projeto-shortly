@@ -70,3 +70,31 @@ export async function deleteUrl(req, res){
         return res.status(500).send(error.message);
     }
 }
+
+export async function getMyUrls(req, res){
+    const secretKey = process.env.JWT_SECRET;
+    const session = res.locals.session;
+
+    try {
+        const user = jwt.verify(session.token, secretKey);
+
+        const result = await db.query(`
+            SELECT users.id, users.name, SUM(urls."visitCount") as "visitCount", 
+                json_agg(json_build_object(
+                    'id', urls.id, 
+                    'shortUrl', urls."shortUrl", 
+                    'url', urls.url, 
+                    'visitCount', urls."visitCount"
+                )) AS "shortenedUrls"
+                FROM users
+                JOIN urls ON users.id = urls."userId"
+                WHERE users.id = $1
+                GROUP BY users.id, users.name;
+        `, [user.id]);
+
+        return res.send(result.rows[0]);
+
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
+}
