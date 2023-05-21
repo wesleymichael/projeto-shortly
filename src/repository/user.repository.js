@@ -5,7 +5,7 @@ export async function insertUserRepository(name, email, hash){
 }
 
 export async function insertSessionRepository(token){
-    return await db.query(`INSERT INTO sessions (token) VALUES ($2);`, [token]);
+    return await db.query(`INSERT INTO sessions (token) VALUES ($1);`, [token]);
 }
 
 export async function getUserByEmail(email){

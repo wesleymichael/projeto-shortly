@@ -2,6 +2,7 @@ import { tokenToUser } from "../utils/tokenToUser.js";
 import { nanoid } from 'nanoid';
 import { 
     deleteUrlRepository, 
+    getMyUrlsRepository, 
     getUrlByIdRepository, 
     insertUrlRepository, 
     rankingRepository, 
@@ -75,7 +76,7 @@ export async function getMyUrls(req, res){
     try {
         const user = tokenToUser(session.token);
 
-        const result = await getUrlByIdRepository(user.id);
+        const result = await getMyUrlsRepository(user.id);
 
         return res.send(result.rows[0]);
 
@@ -86,7 +87,7 @@ export async function getMyUrls(req, res){
 
 export async function ranking(req, res){
     try {
-        const result = rankingRepository();
+        const result = await rankingRepository();
         return res.status(200).send(result.rows)
     } catch (error) {
         return res.status(500).send(error.message)
