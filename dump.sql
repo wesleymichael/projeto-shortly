@@ -145,12 +145,17 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 --
 
 INSERT INTO public.sessions VALUES (1, 1, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik1pY2hhZWwiLCJlbWFpbCI6Indlc2xleUBtaWNoYWVsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJEJQRWxoVDNaT1hrZVdNcUxvVHZ5dE84RFlySmNWenBEeXlKQWRXWm1YM0ZZYk9nVmhDTmVDIiwiY3JlYXRlZEF0IjoiMjAyMy0wNS0xOVQxODo0Nzo1OS4yODJaIiwiaWF0IjoxNjg0NTIyMDg1fQ.XDiefky_kmg-Vw6U1ujjQMzQO7Y705qRKfDxf08cVGI', '2023-05-19 15:48:05.90096');
+INSERT INTO public.sessions VALUES (2, 1, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik1pY2hhZWwiLCJlbWFpbCI6Indlc2xleUBtaWNoYWVsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJEJQRWxoVDNaT1hrZVdNcUxvVHZ5dE84RFlySmNWenBEeXlKQWRXWm1YM0ZZYk9nVmhDTmVDIiwiY3JlYXRlZEF0IjoiMjAyMy0wNS0xOVQxODo0Nzo1OS4yODJaIiwiaWF0IjoxNjg0NTMyMzMxfQ.VOGTUbFfB1vGM76dPR7EikTLzmtNN0ELuSQyxWWSE7M', '2023-05-19 18:38:51.058586');
+INSERT INTO public.sessions VALUES (3, 1, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik1pY2hhZWwiLCJlbWFpbCI6Indlc2xleUBtaWNoYWVsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJEJQRWxoVDNaT1hrZVdNcUxvVHZ5dE84RFlySmNWenBEeXlKQWRXWm1YM0ZZYk9nVmhDTmVDIiwiY3JlYXRlZEF0IjoiMjAyMy0wNS0xOVQxODo0Nzo1OS4yODJaIiwiaWF0IjoxNjg0NTMyNzYzfQ.fzeO38RWQOSPLgCGPZIdXpRtreKGukZAxACIJeEMOIQ', '2023-05-19 18:46:03.003133');
+INSERT INTO public.sessions VALUES (4, 1, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ik1pY2hhZWwiLCJlbWFpbCI6Indlc2xleUBtaWNoYWVsLmNvbSIsInBhc3N3b3JkIjoiJDJiJDEwJEJQRWxoVDNaT1hrZVdNcUxvVHZ5dE84RFlySmNWenBEeXlKQWRXWm1YM0ZZYk9nVmhDTmVDIiwiY3JlYXRlZEF0IjoiMjAyMy0wNS0xOVQxODo0Nzo1OS4yODJaIiwiaWF0IjoxNjg0NTU4MDY4fQ.laQSx6l7OaeiyvJW5XF2YtjWjc_RBmTLGlNcyeEzZ34', '2023-05-20 01:47:48.011339');
 
 
 --
 -- Data for Name: urls; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO public.urls VALUES (2, 1, 'www.globo.com', 'R_6yYZ2iymZrx6ykdNO7W', 1, '2023-05-20 01:48:07.180874');
+INSERT INTO public.urls VALUES (3, 1, 'www.instagram.com', 'fVnJP0pArMZbdn2eBl6KB', 2, '2023-05-20 02:07:26.248998');
 
 
 --
@@ -164,14 +169,14 @@ INSERT INTO public.users VALUES (1, 'Michael', 'wesley@michael.com', '$2b$10$BPE
 -- Name: sessions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.sessions_id_seq', 1, true);
+SELECT pg_catalog.setval('public.sessions_id_seq', 4, true);
 
 
 --
 -- Name: urls_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.urls_id_seq', 1, true);
+SELECT pg_catalog.setval('public.urls_id_seq', 3, true);
 
 
 --
