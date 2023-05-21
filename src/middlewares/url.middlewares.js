@@ -1,4 +1,4 @@
-import { db } from "../database/database.connection.js";
+import { getUrlByIdRepository, getUrlByShortUrlRepository } from "../repository/urls.repository.js";
 
 export async function validateId(req, res, next){
     const id = parseInt(req.params.id);
@@ -12,7 +12,7 @@ export async function validateShortUrl(req, res, next){
     const {shortUrl} = req.params;
 
     try {
-        const result = await db.query(`SELECT * FROM urls WHERE "shortUrl" = $1;`, [shortUrl]);
+        const result = await getUrlByShortUrlRepository(shortUrl);
 
         if(result.rowCount === 0) return res.sendStatus(404);
 
@@ -28,7 +28,7 @@ export async function validateUrl(req, res, next){
     const id = res.locals.id;
 
     try {
-        const urlExists = await db.query(`SELECT 1 FROM urls WHERE id = $1;`, [id]);
+        const urlExists = getUrlByIdRepository(id);
 
         if(urlExists.rowCount === 0) return res.sendStatus(404);
 

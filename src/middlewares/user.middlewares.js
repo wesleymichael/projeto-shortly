@@ -1,4 +1,3 @@
-import { db } from "../database/database.connection.js";
 import bcrypt from "bcrypt";
 import { getUserByEmail } from "../repository/user.repository.js";
 
