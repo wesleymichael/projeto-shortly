@@ -1,4 +1,5 @@
 import { db } from "../database/database.connection.js";
+import { addSession } from "../repository/sessions.repository.js";
 
 export async function authValidation(req, res, next){
     const {authorization} = req.headers;
@@ -7,7 +8,7 @@ export async function authValidation(req, res, next){
     if(!token) return res.sendStatus(401);
 
     try{
-        const session = await db.query(`SELECT * FROM sessions WHERE token = $1;`, [token]);
+        const session = await addSession(token);
 
         if(session.rowCount === 0) return res.sendStatus(401);
 
