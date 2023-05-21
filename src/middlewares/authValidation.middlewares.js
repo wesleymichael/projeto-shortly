@@ -1,4 +1,3 @@
-import { db } from "../database/database.connection.js";
 import { addSession } from "../repository/sessions.repository.js";
 
 export async function authValidation(req, res, next){
